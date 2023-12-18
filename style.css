@@ -59,7 +59,8 @@ h3 {
 }
 #grid-container .grid-cell {
   border: 1px solid var(--secondary);
-  /* aspect-ratio: 1 / 1; */
+  cursor: pointer;
+  transition: background-color 200ms;
 }
 
 footer {
