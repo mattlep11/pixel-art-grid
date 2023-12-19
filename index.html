@@ -32,6 +32,26 @@
       <div class="grid-cell"></div>
       <div class="grid-cell"></div>
     </div>
+    <section id="settings">
+      <div id="colour-settings">
+        <label for="color">Colour <i class="fa-solid fa-paint-roller"></i></label>
+        <input type="color" name="color" id="color-picker">
+      </div>
+      <div id="grid-size">
+        <label for="slider">Grid Size <i class="fa-solid fa-vector-square"></i></label>
+        <p id="slider-size"> 4 x 4</p>
+        <input type="range" name="slider" id="slider" min="4" max="64" list="values">
+        <datalist id="values">
+          <option value="4" for="4"></option>
+          <option value="9" for="9"></option>
+          <option value="16" for="16"></option>
+          <option value="25" for="25"></option>
+          <option value="36" for="36"></option>
+          <option value="49" for="49"></option>
+          <option value="64" for="64"></option>
+        </datalist>
+      </div>
+    </section>
   </main>
   <footer>
     <p>Check me out!</p>

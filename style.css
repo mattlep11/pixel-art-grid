@@ -52,15 +52,38 @@ h3 {
   aspect-ratio: 1 / 1;
   width: var(--square-grid-width);
   height: auto;
-  margin: 0 auto;
+  margin: 0 auto 1.5rem auto;
   background: var(--background-off-colour);
-  border: 3px solid var(--accent);
+  border: 3px solid var(--secondary);
   border-radius: 3px;
 }
 #grid-container .grid-cell {
-  border: 1px solid var(--secondary);
+  border: 1px solid rgba(90, 90, 90, 0.4);
   cursor: pointer;
   transition: background-color 200ms;
+}
+
+#settings {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: var(--square-grid-width);
+}
+#settings div {
+  background: var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2.2rem;
+  border-radius: 5px;
+  color: var(--background);
+  font-size: 1.8rem;
+
+  transition: transform 200ms;
+}
+#settings div:hover {
+  transform: scale(1.05);
 }
 
 footer {
