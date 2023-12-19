@@ -1,22 +1,41 @@
 const GRID = document.getElementById("grid-container");
 let cellsList = document.querySelectorAll(".grid-cell");
 const COLOR_PICKER = document.getElementById("color-picker");
+const RANDOMIZER = document.getElementById("randomizer");
 const SLIDER = document.getElementById("slider");
 const SLIDER_SIZE_TEXT = document.getElementById("slider-size");
 const SLIDER_DEFAULT = 4;
 const DEFAULT_CELL_COLOR = "#f4f2f0";
 let currentColour = COLOR_PICKER.value;
+let randomize = false;
 let drawing = false;
 
 COLOR_PICKER.addEventListener("input", () => {
   currentColour = COLOR_PICKER.value;
 });
+
 SLIDER.addEventListener("input", () => {
   SLIDER_SIZE_TEXT.innerText = `${SLIDER.value} x ${SLIDER.value}`;
   populateGrid(SLIDER.value);
   initGrid(SLIDER.value);
   makeCellsDrawable();
 });
+
+RANDOMIZER.addEventListener("click", () => {
+  randomize = !randomize;
+  RANDOMIZER.style.backgroundColor = randomize 
+    ? 'var(--primary-activated)' 
+    : 'var(--primary)';
+});
+
+// generates a random rgb colour
+function generateRandomColour() {
+  let r = Math.floor(Math.random() * 260);
+  let g = Math.floor(Math.random() * 260);
+  let b = Math.floor(Math.random() * 260);
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
 // dynamically sets up the new grid arrangement based on the number of cells
 function initGrid(nbCellsPerRow) {
@@ -49,12 +68,20 @@ function populateGrid(nbCellsPerRow) {
 // make the cells drawable
 function makeCellsDrawable() {
   cellsList.forEach(c => c.addEventListener('mousedown', () => {
-    c.style.backgroundColor = currentColour;
+    console.log(generateRandomColour())
+    if (randomize) 
+      c.style.backgroundColor = generateRandomColour();
+    else 
+      c.style.backgroundColor = currentColour;
+
     drawing = true;
   }));
   cellsList.forEach(c => c.addEventListener('mousemove', () => {
     if (drawing)
-      c.style.backgroundColor = currentColour;
+      if (randomize) 
+        c.style.backgroundColor = generateRandomColour();
+      else 
+        c.style.backgroundColor = currentColour;
   }));
   cellsList.forEach(c => c.addEventListener('mouseup', () => {
     drawing = false;
