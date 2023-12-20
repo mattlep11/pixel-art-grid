@@ -4,13 +4,13 @@
   font-family: "Heebo", Helvetica, Arial, sans-serif;
   font-size: 0.625rem;
   color: var(--text);
-  --text: #150f13;
-  --background: #f4f0f2;
-  --background-off-colour: #f4f2f0;
-  --primary: #543b4a;
-  --primary-activated: #2d2028;
-  --secondary: #b5a097;
-  --accent: #927c68;
+  --text: rgb(21,15,19);
+  --background: rgb(244,240,242);
+  --background-off-colour: rgb(244,242,240);
+  --primary: rgb(84,59,74);
+  --primary-activated: rgb(45,32,40);
+  --secondary: rgb(181,160,151);
+  --accent: rgb(146,124,104);
   --square-grid-width: 60rem;
 }
 

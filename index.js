@@ -2,12 +2,13 @@ const GRID = document.getElementById("grid-container");
 let cellsList = document.querySelectorAll(".grid-cell");
 const COLOR_PICKER = document.getElementById("color-picker");
 const RANDOMIZER = document.getElementById("randomizer");
+const SHADER = document.getElementById("shader");
 const SLIDER = document.getElementById("slider");
 const SLIDER_SIZE_TEXT = document.getElementById("slider-size");
 const SLIDER_DEFAULT = 4;
-const DEFAULT_CELL_COLOR = "#f4f2f0";
 let currentColour = COLOR_PICKER.value;
 let randomize = false;
+let shading = false;
 let drawing = false;
 
 COLOR_PICKER.addEventListener("input", () => {
@@ -28,13 +29,20 @@ RANDOMIZER.addEventListener("click", () => {
     : 'var(--primary)';
 });
 
+SHADER.addEventListener("click", () => {
+  shading = !shading;
+  SHADER.style.backgroundColor = shading 
+  ? 'var(--primary-activated)' 
+  : 'var(--primary)';
+});
+
 // generates a random rgb colour
 function generateRandomColour() {
   let r = Math.floor(Math.random() * 260);
   let g = Math.floor(Math.random() * 260);
   let b = Math.floor(Math.random() * 260);
 
-  return `rgb(${r}, ${g}, ${b})`;
+  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
 }
 
 // dynamically sets up the new grid arrangement based on the number of cells
@@ -65,10 +73,8 @@ function populateGrid(nbCellsPerRow) {
   cellsList = document.querySelectorAll(".grid-cell")
 }
 
-// make the cells drawable
 function makeCellsDrawable() {
   cellsList.forEach(c => c.addEventListener('mousedown', () => {
-    console.log(generateRandomColour())
     if (randomize) 
       c.style.backgroundColor = generateRandomColour();
     else 
@@ -83,12 +89,10 @@ function makeCellsDrawable() {
       else 
         c.style.backgroundColor = currentColour;
   }));
-  cellsList.forEach(c => c.addEventListener('mouseup', () => {
-    drawing = false;
-  }));
 }
 
 // SETUP
 SLIDER.value = SLIDER_DEFAULT;
 initGrid(Math.sqrt(cellsList.length));
 makeCellsDrawable();
+document.addEventListener('mouseup', () => drawing = false)
