@@ -32,7 +32,19 @@ a:hover {
 }
 
 body {
-  background: var(--background);
+  position: relative;
+  background-color: var(--background);
+  overflow: hidden;
+}
+
+body #bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: url("/assets/canvas-bg.avif") center center;
+  filter: opacity(0.2);
+  scale: 2;
+  z-index: -1;
 }
 
 h1 {
@@ -62,6 +74,12 @@ h3 {
   border: 1px solid rgba(90, 90, 90, 0.4);
   cursor: pointer;
   transition: background-color 200ms;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 #settings {

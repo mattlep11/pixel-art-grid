@@ -46,7 +46,7 @@ SHADER.addEventListener("click", () => {
 CLEARER.addEventListener("click", () => {
   CLEARER.animate(
     [{ color: "rgb(244,240,242)" }, { color: "var(--primary)" }, { color: "rgb(244,240,242)" }],
-    { duration: 1000, iterations: 1}
+    { duration: 750, iterations: 1}
   );
   cellsList.forEach(cell => cell.style.backgroundColor = DEFAULT_COLOR);
 });
