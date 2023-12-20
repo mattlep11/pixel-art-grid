@@ -2,7 +2,6 @@ const GRID = document.getElementById("grid-container");
 let cellsList = document.querySelectorAll(".grid-cell");
 const COLOR_PICKER = document.getElementById("color-picker");
 const RANDOMIZER = document.getElementById("randomizer");
-const SHADER = document.getElementById("shader");
 const SLIDER = document.getElementById("slider");
 const CLEARER = document.getElementById("clear");
 const SLIDER_SIZE_TEXT = document.getElementById("slider-size");
@@ -10,7 +9,6 @@ const SLIDER_DEFAULT = 4;
 let currentColour = COLOR_PICKER.value;
 const DEFAULT_COLOR = "rgb(244,242,240)";
 let randomize = false;
-let shading = false;
 let drawing = false;
 
 // set the current color to the user's choice
@@ -32,14 +30,6 @@ RANDOMIZER.addEventListener("click", () => {
   RANDOMIZER.style.backgroundColor = randomize 
     ? 'var(--primary-activated)' 
     : 'var(--primary)';
-});
-
-// toggle shader
-SHADER.addEventListener("click", () => {
-  shading = !shading;
-  SHADER.style.backgroundColor = shading 
-  ? 'var(--primary-activated)' 
-  : 'var(--primary)';
 });
 
 // clear board
