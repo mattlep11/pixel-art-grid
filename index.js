@@ -11,10 +11,12 @@ let randomize = false;
 let shading = false;
 let drawing = false;
 
+// set the current color to the user's choice
 COLOR_PICKER.addEventListener("input", () => {
   currentColour = COLOR_PICKER.value;
 });
 
+// adjust the grid size based on slider input and update the size text
 SLIDER.addEventListener("input", () => {
   SLIDER_SIZE_TEXT.innerText = `${SLIDER.value} x ${SLIDER.value}`;
   populateGrid(SLIDER.value);
@@ -22,6 +24,7 @@ SLIDER.addEventListener("input", () => {
   makeCellsDrawable();
 });
 
+// toggle randomizer
 RANDOMIZER.addEventListener("click", () => {
   randomize = !randomize;
   RANDOMIZER.style.backgroundColor = randomize 
@@ -29,6 +32,7 @@ RANDOMIZER.addEventListener("click", () => {
     : 'var(--primary)';
 });
 
+// toggle shader
 SHADER.addEventListener("click", () => {
   shading = !shading;
   SHADER.style.backgroundColor = shading 
@@ -36,13 +40,14 @@ SHADER.addEventListener("click", () => {
   : 'var(--primary)';
 });
 
-// generates a random rgb colour
+// generates a random rgba colour
 function generateRandomColour() {
   let r = Math.floor(Math.random() * 260);
   let g = Math.floor(Math.random() * 260);
   let b = Math.floor(Math.random() * 260);
+  let a = Math.random();
 
-  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+  return `rgb(${r}, ${g}, ${b}, ${a})`;
 }
 
 // dynamically sets up the new grid arrangement based on the number of cells
@@ -62,7 +67,7 @@ function populateGrid(nbCellsPerRow) {
     }
   }
   else {
-  // adding necessary amount of cells {
+  // adding necessary amount of cells
     for (let i = 0; i < necessaryCells - cellsList.length; i++) {
         let cell = document.createElement('div');
         cell.classList.add('grid-cell');
