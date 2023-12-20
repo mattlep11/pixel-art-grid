@@ -4,9 +4,11 @@ const COLOR_PICKER = document.getElementById("color-picker");
 const RANDOMIZER = document.getElementById("randomizer");
 const SHADER = document.getElementById("shader");
 const SLIDER = document.getElementById("slider");
+const CLEARER = document.getElementById("clear");
 const SLIDER_SIZE_TEXT = document.getElementById("slider-size");
 const SLIDER_DEFAULT = 4;
 let currentColour = COLOR_PICKER.value;
+const DEFAULT_COLOR = "rgb(244,242,240)";
 let randomize = false;
 let shading = false;
 let drawing = false;
@@ -38,6 +40,15 @@ SHADER.addEventListener("click", () => {
   SHADER.style.backgroundColor = shading 
   ? 'var(--primary-activated)' 
   : 'var(--primary)';
+});
+
+// clear board
+CLEARER.addEventListener("click", () => {
+  CLEARER.animate(
+    [{ color: "rgb(244,240,242)" }, { color: "var(--primary)" }, { color: "rgb(244,240,242)" }],
+    { duration: 1000, iterations: 1}
+  );
+  cellsList.forEach(cell => cell.style.backgroundColor = DEFAULT_COLOR);
 });
 
 // generates a random rgba colour
