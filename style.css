@@ -132,7 +132,7 @@ footer::before {
   width: 100%;
   max-width: 0;
   background: var(--accent);
-  transition: max-width 500ms ease-in;
+  transition: max-width 350ms ease-in-out;
 }
 footer:hover::before {
   max-width: 100%;

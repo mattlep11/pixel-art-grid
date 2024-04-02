@@ -1,10 +1,15 @@
+// grid root and drawable cells
 const GRID = document.getElementById("grid-container");
 let cellsList = document.querySelectorAll(".grid-cell");
+
+// user inputs
 const COLOR_PICKER = document.getElementById("color-picker");
 const RANDOMIZER = document.getElementById("randomizer");
 const SLIDER = document.getElementById("slider");
 const CLEARER = document.getElementById("clear");
 const SLIDER_SIZE_TEXT = document.getElementById("slider-size");
+
+// control variables
 const SLIDER_DEFAULT = 4;
 let currentColour = COLOR_PICKER.value;
 const DEFAULT_COLOR = "rgb(244,242,240)";
@@ -18,7 +23,7 @@ COLOR_PICKER.addEventListener("input", () => {
 
 // adjust the grid size based on slider input and update the size text
 SLIDER.addEventListener("input", () => {
-  SLIDER_SIZE_TEXT.innerText = `${SLIDER.value} x ${SLIDER.value}`;
+  SLIDER_SIZE_TEXT.innerText = SLIDER.value + " x " + SLIDER.value;
   populateGrid(SLIDER.value);
   initGrid(SLIDER.value);
   makeCellsDrawable();
@@ -35,11 +40,19 @@ RANDOMIZER.addEventListener("click", () => {
 // clear board
 CLEARER.addEventListener("click", () => {
   CLEARER.animate(
-    [{ color: "rgb(244,240,242)" }, { color: "var(--primary)" }, { color: "rgb(244,240,242)" }],
+    [
+      { color: DEFAULT_COLOR }, 
+      { color: "var(--primary)" }, 
+      { color: DEFAULT_COLOR }
+    ],
     { duration: 750, iterations: 1}
   );
-  cellsList.forEach(cell => cell.style.backgroundColor = DEFAULT_COLOR);
+  clearBoard(cellsList);
 });
+
+function clearBoard(cells) {
+  cells.forEach(cell => cell.style.backgroundColor = DEFAULT_COLOR);
+}
 
 // generates a random rgba colour
 function generateRandomColour() {
@@ -48,12 +61,12 @@ function generateRandomColour() {
   let b = Math.floor(Math.random() * 260);
   let a = Math.random();
 
-  return `rgb(${r}, ${g}, ${b}, ${a})`;
+  return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
 }
 
 // dynamically sets up the new grid arrangement based on the number of cells
 function initGrid(nbCellsPerRow) {
-  GRID.style.gridTemplateColumns = `repeat(${nbCellsPerRow}, 1fr)`;
+  GRID.style.gridTemplateColumns = "repeat(" + nbCellsPerRow + ", 1fr)";
 }
 
 // populate the grid with all the cells to draw on
@@ -79,26 +92,28 @@ function populateGrid(nbCellsPerRow) {
   cellsList = document.querySelectorAll(".grid-cell")
 }
 
+// adds listeners to each cell to listen for mouse activity required to draw 
 function makeCellsDrawable() {
-  cellsList.forEach(c => c.addEventListener('mousedown', () => {
-    if (randomize) 
-      c.style.backgroundColor = generateRandomColour();
-    else 
-      c.style.backgroundColor = currentColour;
-
+  cellsList.forEach(cell => cell.addEventListener('mousedown', () => {
+    draw(cell);
     drawing = true;
   }));
-  cellsList.forEach(c => c.addEventListener('mousemove', () => {
+  cellsList.forEach(cell => cell.addEventListener('mouseenter', () => {
     if (drawing)
-      if (randomize) 
-        c.style.backgroundColor = generateRandomColour();
-      else 
-        c.style.backgroundColor = currentColour;
+      draw(cell);
   }));
+}
+
+// draw to the grid canvas
+function draw(cell) {
+  if (randomize) 
+    cell.style.backgroundColor = generateRandomColour();
+  else 
+    cell.style.backgroundColor = currentColour;
 }
 
 // SETUP
 SLIDER.value = SLIDER_DEFAULT;
 initGrid(Math.sqrt(cellsList.length));
 makeCellsDrawable();
-document.addEventListener('mouseup', () => drawing = false)
+document.addEventListener('mouseup', () => drawing = false);
