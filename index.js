@@ -26,7 +26,6 @@ SLIDER.addEventListener("input", () => {
   SLIDER_SIZE_TEXT.innerText = SLIDER.value + " x " + SLIDER.value;
   populateGrid(SLIDER.value);
   initGrid(SLIDER.value);
-  makeCellsDrawable();
 });
 
 // toggle randomizer
@@ -92,20 +91,34 @@ function populateGrid(nbCellsPerRow) {
   cellsList = document.querySelectorAll(".grid-cell")
 }
 
-// adds listeners to each cell to listen for mouse activity required to draw 
-function makeCellsDrawable() {
-  cellsList.forEach(cell => cell.addEventListener('mousedown', () => {
-    draw(cell);
-    drawing = true;
-  }));
-  cellsList.forEach(cell => cell.addEventListener('mouseenter', () => {
-    if (drawing)
-      draw(cell);
-  }));
-}
+// used to avoid excessive function calls from the mouseover event
+let lastDrawnCell = null;
+
+// adds listeners to the grid to delegate drawing events to the grid cells
+['mousedown', 'touchstart'].forEach(eventName => { 
+  GRID.addEventListener(eventName, e => {
+    // ensure target is actually a grid cell
+    if (e.target.classList.contains('grid-cell')) {
+      draw(e.target);
+      drawing = true;
+      lastDrawnCell = e.target;
+    }
+  });
+});
+
+GRID.addEventListener(eventName, e => {
+  // ensure target is a grid cell
+  if (drawing && e.target.classList.contains('grid-cell')) {
+    if (lastDrawnCell !== e.target) {
+      draw(e.target);
+      lastDrawnCell = e.target;
+    }
+  }
+});
 
 // draw to the grid canvas
 function draw(cell) {
+  console.log("drawing called")
   if (randomize) 
     cell.style.backgroundColor = generateRandomColour();
   else 
@@ -115,5 +128,5 @@ function draw(cell) {
 // SETUP
 SLIDER.value = SLIDER_DEFAULT;
 initGrid(Math.sqrt(cellsList.length));
-makeCellsDrawable();
 document.addEventListener('mouseup', () => drawing = false);
+document.addEventListener('touchend', () => drawing = false);
