@@ -23,6 +23,7 @@ COLOR_PICKER.addEventListener("input", () => {
 
 // adjust the grid size based on slider input and update the size text
 SLIDER.addEventListener("input", () => {
+  clearBoard(cellsList); // remove any current art
   SLIDER_SIZE_TEXT.innerText = SLIDER.value + " x " + SLIDER.value;
   populateGrid(SLIDER.value);
   initGrid(SLIDER.value);
@@ -106,7 +107,7 @@ let lastDrawnCell = null;
   });
 });
 
-GRID.addEventListener(eventName, e => {
+GRID.addEventListener('mouseover', e => {
   // ensure target is a grid cell
   if (drawing && e.target.classList.contains('grid-cell')) {
     if (lastDrawnCell !== e.target) {
