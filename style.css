@@ -45,12 +45,12 @@ body {
 
 body #bg {
   position: absolute;
-  background: url("/pixel-art-grid/assets/canvas-bg.avif") center center;
-  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  background: url("/pixel-art-grid/assets/canvas-bg.png") center center;
   background-size: cover;
   background-attachment: fixed;
   opacity: 0.3;
-  scale: 2;
   z-index: -2;
 }
 

@@ -119,7 +119,6 @@ GRID.addEventListener('mouseover', e => {
 
 // draw to the grid canvas
 function draw(cell) {
-  console.log("drawing called")
   if (randomize) 
     cell.style.backgroundColor = generateRandomColour();
   else 
